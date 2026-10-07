@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="pt-PT"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ligar os Números</title>
+<style>body{margin:0;font-family:Segoe UI,Arial;background:linear-gradient(135deg,#e9faf4,#fff);color:#172033;text-align:center}main{max-width:800px;margin:auto;padding:30px 15px}.back{color:#059669;text-decoration:none;font-weight:700}.wrap{background:#fff;border-radius:22px;padding:12px;box-shadow:0 8px 25px #0001}canvas{max-width:100%;height:auto;touch-action:none}button{border:0;border-radius:12px;background:#10b981;color:#fff;padding:12px 20px;font-size:16px;font-weight:700;cursor:pointer}</style></head>
+<body><main><a class="back" href="../index.html">← Voltar ao portal</a><h1>🔢 Ligar os Números</h1><p id="status">Começa pelo número 1!</p><div class="wrap"><canvas id="c" width="700" height="480"></canvas></div><br><button onclick="novo()">Novo desenho</button></main>
+<script>
+const c=document.getElementById('c'),x=c.getContext('2d');let pts=[],next;
+function novo(){next=1;pts=[[350,55],[390,75],[430,105],[470,145],[495,195],[505,245],[490,300],[465,350],[420,395],[350,425],[280,395],[235,350],[205,300],[195,245],[205,195],[230,145],[270,105],[310,75]].map((p,i)=>({x:p[0],y:p[1],n:i+1}));desenhar()}
+function desenhar(){x.clearRect(0,0,c.width,c.height);pts.forEach(d=>{x.beginPath();x.arc(d.x,d.y,17,0,Math.PI*2);x.fillStyle='#fff';x.fill();x.strokeStyle='#059669';x.lineWidth=3;x.stroke();x.fillStyle='#059669';x.font='bold 20px Arial';x.textAlign='center';x.textBaseline='middle';x.fillText(d.n,d.x,d.y)})}
+c.onclick=e=>{let r=c.getBoundingClientRect(),mx=(e.clientX-r.left)*c.width/r.width,my=(e.clientY-r.top)*c.height/r.height,d=pts.find(q=>Math.hypot(q.x-mx,q.y-my)<25);if(!d||d.n!==next)return;if(next>1){let a=pts[next-2];x.beginPath();x.moveTo(a.x,a.y);x.lineTo(d.x,d.y);x.strokeStyle='#f97316';x.lineWidth=5;x.stroke()}next++;document.getElementById('status').textContent=next>pts.length?'🎉 Muito bem! Descobriste o desenho!':'Muito bem! Procura o número '+next+'.'};novo();
+</script></body></html>
